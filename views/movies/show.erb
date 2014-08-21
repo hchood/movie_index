@@ -1,0 +1,25 @@
+<h2><%= @movie[:title] %></h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Synopsis</th>
+      <th>Rating</th>
+      <th>Genre</th>
+      <th>Studio</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td><%= @movie[:title] %></td>
+      <td><%= @movie[:year] %></td>
+      <td><%= @movie[:synopsis] %></td>
+      <td><%= @movie[:rating] %></td>
+      <td><%= @movie[:genre] %></td>
+      <td><%= @movie[:studio] %></td>
+    </tr>
+  </tbody>
+</table>
