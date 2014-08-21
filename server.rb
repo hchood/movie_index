@@ -15,6 +15,29 @@ require 'csv'
 #         METHODS
 ##########################
 
+# [
+#   {
+#     id: 2,
+#     title: 'Troll 2',
+#     year: 1990,
+#     synopsis: '',
+#     rating: 0,
+#     genre: 'Horror',
+#     studio: 'MGM'
+#   },
+#   {...}
+# ]
+
+# creates an array of movie hashes from a CSV
+def read_movies_from(filename)
+  movies = []
+
+  CSV.foreach(filename, headers: true, header_converters: :symbol, converters: :numeric) do |row|
+    movies << row.to_hash
+  end
+
+  movies
+end
 
 ##########################
 #         ROUTES
