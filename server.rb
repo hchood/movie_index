@@ -32,11 +32,11 @@ require 'csv'
 def read_movies_from(filename)
   movies = []
 
-  CSV.foreach(filename, headers: true, header_converters: :symbol, converters: :numeric) do |row|
+  CSV.foreach(filename, headers: true, header_converters: :symbol) do |row|
     movies << row.to_hash
   end
 
-  movies
+  movies.sort_by { |movie| movie[:title] }
 end
 
 ##########################
