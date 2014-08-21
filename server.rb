@@ -10,3 +10,29 @@ require 'csv'
 # you to /movies/:movie_id, where :movie_id is
 # replaced by the numeric ID for that movie
 # (e.g. /movies/2 will take you to the page for Troll 2).
+
+##########################
+#         METHODS
+##########################
+
+
+##########################
+#         ROUTES
+##########################
+
+get '/movies' do
+  @movies = read_movies_from('movies.csv')
+
+  erb :'/movies/index'
+end
+
+
+
+
+
+
+
+
+
+
+
