@@ -77,6 +77,16 @@ def find_movie_by(filename, id)
   movie
 end
 
+helpers do
+  def on_last_page?(page_num, last_page_num)
+    page_num < last_page_num
+  end
+
+  def on_first_page?(page_num)
+    page_num == 1
+  end
+end
+
 ##########################
 #         ROUTES
 ##########################
