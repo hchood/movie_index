@@ -25,6 +25,12 @@ require 'csv'
 # the second page, the URL should change to /movies?page=2 (the page number
 # can be accessed in the params hash).
 
+# FEATURE 4:
+# Include a way to filter movies using a search bar.
+# When visiting the index path with a query parameter
+# (i.e. /movies?query=Troll+2) it should only show movies that
+# include the search term in the movie title or synopsis.
+
 ##########################
 #         METHODS
 ##########################
@@ -87,27 +93,33 @@ helpers do
   end
 end
 
+def filter_movies(movies, query)
+  search_results = []
+
+  movies.each do |movie|
+    if movie[:title].downcase.include?(query) || (movie[:synopsis] && movie[:synopsis].downcase.include?(query))
+      search_results << movie
+    end
+  end
+
+  search_results
+end
+
 ##########################
 #         ROUTES
 ##########################
 
 get '/movies' do
-  all_movies = read_movies_from('movies.csv')
-
-  # if params[:page]
-  #   @page_num = params[:page].to_i
-  # else
-  #   @page_num = 1
-  # end
+  movies = read_movies_from('movies.csv')
+  movies = filter_movies(movies, params[:query].downcase) if params[:query]
 
   @page_num = params[:page] ? params[:page].to_i : 1
-
-  @last_page_num = all_movies.count / 20 + 1
+  @last_page_num = movies.count / 20 + 1
 
   last_index = @page_num * 20 - 1
   first_index = last_index - 19
 
-  @movies = all_movies[first_index..last_index]
+  @movies = movies[first_index..last_index]
 
   erb :'/movies/index'
 end
