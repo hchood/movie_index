@@ -94,7 +94,14 @@ end
 get '/movies' do
   all_movies = read_movies_from('movies.csv')
 
-  @page_num = params[:page].to_i || 1
+  # if params[:page]
+  #   @page_num = params[:page].to_i
+  # else
+  #   @page_num = 1
+  # end
+
+  @page_num = params[:page] ? params[:page].to_i : 1
+
   @last_page_num = all_movies.count / 20 + 1
 
   last_index = @page_num * 20 - 1
