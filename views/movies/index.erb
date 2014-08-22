@@ -5,3 +5,12 @@
     <li><a href="/movies/<%= movie[:id] %>"><%= movie[:title] %></a></li>
   <% end %>
 </ul>
+
+<div>
+  <% if @page_num > 1 %>
+    <a href="/movies?page=<%= @page_num - 1 %>">Previous</a>
+  <% end %>
+  <% if @page_num < @last_page_num %>
+    <a href="/movies?page=<%= @page_num + 1 %>">Next</a>
+  <% end %>
+</div>
