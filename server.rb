@@ -93,11 +93,16 @@ helpers do
   end
 end
 
+def matches_query?(movie, query)
+  movie[:title].downcase.include?(query) ||
+    (movie[:synopsis] && movie[:synopsis].downcase.include?(query))
+end
+
 def filter_movies(movies, query)
   search_results = []
 
   movies.each do |movie|
-    if movie[:title].downcase.include?(query) || (movie[:synopsis] && movie[:synopsis].downcase.include?(query))
+    if matches_query?(movie, query)
       search_results << movie
     end
   end
