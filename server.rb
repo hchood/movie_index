@@ -19,6 +19,12 @@ require 'csv'
 # the synopsis, the rating, the genre, and the studio that produced it
 # (leave blank if any fields are not available).
 
+# FEATURE 3:
+# There a lot of movies to show on a single page. Limit the number of movies
+# displayed at /movies to 20 with links to the next page of movies. To go to
+# the second page, the URL should change to /movies?page=2 (the page number
+# can be accessed in the params hash).
+
 ##########################
 #         METHODS
 ##########################
@@ -76,7 +82,14 @@ end
 ##########################
 
 get '/movies' do
-  @movies = read_movies_from('movies.csv')
+  all_movies = read_movies_from('movies.csv')
+
+  @page_num = params[:page].to_i || 1
+
+  last_index = @page_num * 20 - 1
+  first_index = last_index - 19
+
+  @movies = all_movies[first_index..last_index]
 
   erb :'/movies/index'
 end
